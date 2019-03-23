@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
 
 	private InputController InputController;
     private PlayerResourceManager playerResourceManager;
+    public SeasonManager seasonManager;
 
     //Resource Locations
     public GameObject[] allLocations;
@@ -33,10 +34,11 @@ public class GameController : MonoBehaviour {
     public float realUnitSpeedFactor = 0.005f;
 
 	void Start(){
-		InputController = GameObject.Find ("InputController").GetComponent<InputController> ();
-        UIController = GameObject.Find("UIController").GetComponent<UIController>();
+        InputController = WorldMethods.GetInputController();
+        UIController = WorldMethods.GetUIController();
         playerResourceManager = WorldMethods.GetPlayerResourceManager();
-		waitPerTick = waitPerTickSpeedThree; //Set the game speed to default
+        seasonManager = WorldMethods.GetSeasonManager();
+        waitPerTick = waitPerTickSpeedThree; //Set the game speed to default
         UIController.UIControllerSetup();
 
         SetUpGame ();
@@ -75,6 +77,8 @@ public class GameController : MonoBehaviour {
 
         //Set the correct connections and starting resource values
         playerResourceManager.SetUpResources();
+
+        seasonManager.SetUpSeasons();
 
         UIController.UpdateCalendarDisplay();
         UIController.UpdateResourceDisplay();

@@ -25,8 +25,15 @@ public class UIController : MonoBehaviour {
 	GameController GameController;
     InputController inputController;
     PlayerResourceManager playerResourceManager;
+    SeasonManager seasonManager;
 
     public GameObject pauseBoard;
+
+    //Winter
+    public Image winterBar;
+    public Image winterMarker;
+    public Color winterColour;
+    public Color springColour;
 
 	public void UIControllerSetup(){
 		GameController = GameObject.Find ("GameController").GetComponent<GameController> ();
@@ -45,6 +52,8 @@ public class UIController : MonoBehaviour {
         foodNumber = GameObject.Find("FoodNumber").GetComponent<TextMeshProUGUI>();
         woodNumber = GameObject.Find("WoodNumber").GetComponent<TextMeshProUGUI>();
         silverNumber = GameObject.Find("SilverNumber").GetComponent<TextMeshProUGUI>();
+
+        seasonManager = WorldMethods.GetSeasonManager();
 
         RealDate = GameController.RealDate;
 	}
@@ -79,5 +88,21 @@ public class UIController : MonoBehaviour {
         foodNumber.text = playerResourceManager.food.ToString();
         woodNumber.text = playerResourceManager.wood.ToString();
         silverNumber.text = playerResourceManager.silver.ToString();
+    }
+
+    public void ActivateWinterMarker()
+    {
+        winterMarker.gameObject.SetActive(true);
+    }
+    public void DeactivateWinterMarker()
+    {
+        winterMarker.gameObject.SetActive(false);
+    }
+    public void UpdateWinterBar()
+    {
+        float progressRate = (float)seasonManager.winterProgress / 100f;
+        Color progressColor = Color.Lerp(springColour, winterColour, progressRate);
+        winterBar.fillAmount = progressRate;
+        winterBar.color = progressColor;
     }
 }

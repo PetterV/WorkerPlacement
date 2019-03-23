@@ -17,12 +17,15 @@ public class WorldMethods
     public static UIController UIController { get; set; }
 
     public static PlayerResourceManager playerResourceManager { get; set; }
+
+    public static SeasonManager seasonManager { get; set; }
 	public static Date RealDate {get; set; }
 
 	public static void SetUpWorld()
 	{
 		GameController = GameObject.Find ("GameController").GetComponent<GameController>();
         UIController = GameObject.Find("UIController").GetComponent<UIController>();
+        seasonManager = GetSeasonManager();
 		RealDate = GameController.RealDate;
         playerResourceManager = GetPlayerResourceManager();
 
@@ -39,8 +42,11 @@ public class WorldMethods
             //Sub-daily updates go here
 			quarterTick++;
 		}
-        
-        //Daily updates go here
+
+        //DAILY UPDATES
+        //Calculate winter progress
+        seasonManager.DailyTickWinter();
+
         foreach (GameObject l in GameController.allLocations)
         {
             Location script = l.GetComponent<Location>();
@@ -141,5 +147,10 @@ public class WorldMethods
     {
         PlayerResourceManager playerResourceManagerToGet = GameObject.Find("PlayerResourceManager").GetComponent<PlayerResourceManager>();
         return playerResourceManagerToGet;
+    }
+    public static SeasonManager GetSeasonManager()
+    {
+        SeasonManager seasonManagerToGet = GameObject.Find("SeasonManager").GetComponent<SeasonManager>();
+        return seasonManagerToGet;
     }
 }
