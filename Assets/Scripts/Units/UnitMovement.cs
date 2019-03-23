@@ -16,6 +16,7 @@ public class UnitMovement : MonoBehaviour
     GameController gameController;
     InputController inputController;
     UnitManager unitManager;
+    SeasonManager seasonManager;
     public RevealDetailedInventoryBars inventoryBars;
     // Start is called before the first frame update
     void Awake()
@@ -23,6 +24,8 @@ public class UnitMovement : MonoBehaviour
         gameController = WorldMethods.GetGameController();
         inputController = WorldMethods.GetInputController();
         unitManager = WorldMethods.GetUnitManager();
+        seasonManager = WorldMethods.GetSeasonManager();
+
         //Reduce the speed to an appropriate level for the engine
         realUnitSpeed = unitSpeed * gameController.realUnitSpeedFactor;
     }
@@ -45,7 +48,10 @@ public class UnitMovement : MonoBehaviour
         if (!inputController.gamePaused && target != null)
         {
             float modifiedUnitSpeed = realUnitSpeed * gameController.GameSpeed;
-            //TODO: Pause movement when game is paused
+            if (seasonManager.winter)
+            {
+                modifiedUnitSpeed = modifiedUnitSpeed * unitManager.speedMultiplierWinter;
+            }
             transform.position = Vector2.MoveTowards(transform.position, target.position, modifiedUnitSpeed);
         }
     }

@@ -78,39 +78,39 @@ public class Location : MonoBehaviour
         foreach (GameObject u in unitsInRange)
         {
             UnitInventory unitInventory = u.GetComponent<UnitInventory>();
-            if (food > collectSpeed)
+            if (food > collectSpeed && unitInventory.inventorySize < unitInventory.maxInventorySize)
             {
                 unitInventory.CollectFood(collectSpeed);
                 food = food - collectSpeed;
                 SetFoodFillbar();
             }
-            else if(food > 0)
+            else if(food > 0 && unitInventory.inventorySize < unitInventory.maxInventorySize)
             {
                 unitInventory.CollectFood(food);
                 food = 0;
                 SetFoodFillbar();
             }
 
-            if (wood > collectSpeed)
+            if (wood > collectSpeed && unitInventory.inventorySize < unitInventory.maxInventorySize)
             {
                 unitInventory.CollectWood(collectSpeed);
                 wood = wood - collectSpeed;
                 SetWoodFillbar();
             }
-            else if (wood > 0)
+            else if (wood > 0 && unitInventory.inventorySize < unitInventory.maxInventorySize)
             {
                 unitInventory.CollectWood(wood);
                 wood = 0;
                 SetWoodFillbar();
             }
 
-            if (silver > collectSpeed)
+            if (silver > collectSpeed && unitInventory.inventorySize < unitInventory.maxInventorySize)
             {
                 unitInventory.CollectSilver(collectSpeed);
                 silver = silver - collectSpeed;
                 SetSilverFillbar();
             }
-            else if (silver > 0)
+            else if (silver > 0 && unitInventory.inventorySize < unitInventory.maxInventorySize)
             {
                 unitInventory.CollectSilver(silver);
                 silver = 0;

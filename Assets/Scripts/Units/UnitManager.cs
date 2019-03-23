@@ -9,6 +9,9 @@ public class UnitManager : MonoBehaviour
     public GameObject selectedUnit;
     public GameObject unitPrefab;
     public List<GameObject> allUnits;
+
+    public float speedMultiplierWinter = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {

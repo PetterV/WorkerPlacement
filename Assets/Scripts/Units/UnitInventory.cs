@@ -7,8 +7,8 @@ public class UnitInventory : MonoBehaviour
     public int food;
     public int wood;
     public int silver;
-    int inventorySize = 0;
-    int maxInventorySize = 50;
+    public int inventorySize = 0;
+    public int maxInventorySize = 50;
 
     PlayerResourceManager playerResourceManager;
 
